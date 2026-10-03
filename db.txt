@@ -1,9 +1,6 @@
-drop database redact;
-
-create database redact;
 use redact;
 
-create table user_signup(username varchar(50) primary key,
+create table if not exists user_signup(username varchar(50) primary key,
 password varchar(50),
 phone_no varchar(50),
 email varchar(50),
@@ -11,27 +8,25 @@ address varchar(50),
 description varchar(200),
 usertype varchar(40));
 
-create table patients(patient_name varchar(50),
+create table if not exists patients(patient_name varchar(50),
 disease_details varchar(500),
 aadhar_no varchar(30),
 aadhar_img varchar(50),
 medical_img varchar(50),
 upload_date varchar(30));
 
-create table billing(billing_id int,
+create table if not exists billing(billing_id int,
 patient_name varchar(50),
 bill_amount varchar(30),
 bill_date varchar(30),
 bill_desc varchar(200));
 
-create table appointment(appointment_id int primary key,
+create table if not exists appointment(appointment_id int primary key,
 patient_name varchar(50),
 doctor_name varchar(50),
 disease_details varchar(150),
 prescription varchar(150),
 appointment_date date,
 booking_date varchar(40));
-
-
 
 

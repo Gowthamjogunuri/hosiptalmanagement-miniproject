@@ -9,6 +9,7 @@ desktop.ini
 .ipynb_checkpoints/
 db.sqlite3
 *.sqlite3-journal
+uploads/
 
 # Local identity documents, training inputs, and uploaded reports may contain personal data.
 Data/

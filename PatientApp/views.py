@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.conf import settings
 import pymysql
 from datetime import datetime
 from django.template import RequestContext
@@ -11,13 +12,23 @@ import pytesseract
 import os
 import matplotlib.pyplot as plt
 from ultralytics import YOLO
+from pathlib import Path
 
-import pytesseract
-
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = os.environ.get(
+    "TESSERACT_CMD",
+    "tesseract",
+)
 
 
 def connect_to_database():
+    connection_options = {}
+    ssl_ca = os.environ.get("MYSQL_SSL_CA")
+    if ssl_ca:
+        connection_options["ssl"] = {
+            "ca": ssl_ca,
+            "check_hostname": True,
+        }
+
     return pymysql.connect(
         host=os.environ.get("MYSQL_HOST", "127.0.0.1"),
         port=int(os.environ.get("MYSQL_PORT", "3306")),
@@ -25,6 +36,7 @@ def connect_to_database():
         password=os.environ["MYSQL_PASSWORD"],
         database=os.environ.get("MYSQL_DATABASE", "redact"),
         charset="utf8",
+        **connection_options,
     )
 
 
@@ -33,7 +45,7 @@ labels = ['Aadhar_no', 'DOB', 'Gender', 'Name']
 #yolo confidence threshold to detect hand signs
 CONFIDENCE_THRESHOLD = 0.50
 GREEN = (0, 255, 0)
-yolo_model = YOLO("model/best.pt")
+yolo_model = YOLO(str(settings.BASE_DIR / "model" / "best.pt"))
 print("Yolo11 Model Loaded")
 
 #function to detect aadhar card
@@ -141,16 +153,13 @@ def confirmProfileAction(request):
         if dbcursor.rowcount == 1:
             data = "Your profile successfully updated in Database"
             context= {'data':data}
-            if os.path.exists("PatientApp/static/reports/"+aadhar_name):
-                os.remove("PatientApp/static/reports/"+aadhar_name)
-            with open("PatientApp/static/reports/"+aadhar_name, "wb") as file:
+            settings.MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
+            aadhar_path = settings.MEDIA_ROOT / Path(aadhar_name).name
+            medical_path = settings.MEDIA_ROOT / Path(medical_name).name
+            with open(aadhar_path, "wb") as file:
                 file.write(aadhar_data)
-            file.close()
-            if os.path.exists("PatientApp/static/reports/"+medical_name):
-                os.remove("PatientApp/static/reports/"+medical_name)
-            with open("PatientApp/static/reports/"+medical_name, "wb") as file:
+            with open(medical_path, "wb") as file:
                 file.write(medical_data)
-            file.close()
             return render(request,'PatientScreen.html', context)
         else:
             data = "Error in saving your profile"
@@ -165,12 +174,11 @@ def CreateProfileAction(request):
         aadhar_name = request.FILES['t2'].name
         medical_data = request.FILES['t3'].read()
         medical_name = request.FILES['t3'].name
-        if os.path.exists("PatientApp/static/test.jpg"):
-            os.remove("PatientApp/static/test.jpg")
-        with open("PatientApp/static/test.jpg", "wb") as file:
-            file.write(aadhar_data)
-        file.close()
-        img = cv2.imread("PatientApp/static/test.jpg")
+        img = cv2.imdecode(np.frombuffer(aadhar_data, dtype=np.uint8), cv2.IMREAD_COLOR)
+        if img is None:
+            return render(request, 'CreateProfile.html', {
+                'data': 'The uploaded Aadhaar image could not be read.'
+            })
         img = cv2.resize(img, (500, 500))
         aadhar_no = getAadharNo(img)
         output = '<tr><td><font size="3" color="black">Detected&nbsp;Aadhar&nbsp;No</td><td><input type="text" name="t1" size="25" value="'+aadhar_no+'"/></td></tr>'
@@ -324,7 +332,7 @@ def DownloadAction(request):
             for ls in lists:
                 name = ls[0]
                 break
-        with open("PatientApp/static/reports/"+name, "rb") as file:
+        with open(settings.MEDIA_ROOT / Path(name).name, "rb") as file:
             data = file.read()
         file.close()        
         response = HttpResponse(data,content_type='application/force-download')
@@ -373,7 +381,7 @@ def AdminPatientView(request):
                 output+='<td><font size=3 color=black>'+str(ls[5])+'</font></td>'
                 output+='<td><font size=3 color=black>'+ls[6]+'</font></td>'
                 output+='<td><font size=3 color=black>'+aadhar_no+'</font></td>'
-                output+='<td><img src="/static/reports/'+img+'" width="400" height="400"></img></td>'
+                output+='<td><img src="/media/'+Path(img).name+'" width="400" height="400"></img></td>'
                 output +='<td><a href=\'DownloadAction?requester='+ls[1]+'\'><font size=3 color=white>Download</font></a></td></tr>'                  
         context= {'data':output}            
         return render(request,'AdminScreen.html', context)

@@ -1,0 +1,17 @@
+.git
+.gitignore
+.ipynb_checkpoints
+.vscode
+__pycache__
+*.py[cod]
+.env
+.venv
+venv
+db.sqlite3
+*.sqlite3
+Data
+samples
+PatientApp/static/reports
+PatientApp/static/test.jpg
+SCREENS.docx
+*.docx
