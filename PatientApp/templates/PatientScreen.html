@@ -1,0 +1,115 @@
+{% load static %}
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Hospital Management System - Patient Dashboard</title>
+<meta name="keywords" content="" />
+<meta name="Premium Series" content="" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="bg-gray-100">
+<!-- start header -->
+<header class="bg-blue-600 text-white shadow-lg">
+	<div class="container mx-auto px-4 py-4 flex justify-between items-center">
+		<h1 class="text-2xl font-bold">Patient Dashboard</h1>
+		<nav>
+			<ul class="flex space-x-4">
+				<li><a href="{% url 'CreateProfile' %}" class="bg-blue-700 hover:bg-blue-800 px-3 py-2 rounded transition duration-300">Create Medical Profile</a></li>
+				<li><a href="{% url 'BookAppointment' %}" class="bg-blue-700 hover:bg-blue-800 px-3 py-2 rounded transition duration-300">Book Appointments</a></li>
+				<li><a href="{% url 'ViewPrescription' %}" class="bg-blue-700 hover:bg-blue-800 px-3 py-2 rounded transition duration-300">View Prescriptions</a></li>
+				<li><a href="{% url 'index' %}" class="bg-red-500 hover:bg-red-600 px-3 py-2 rounded transition duration-300">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+<div class="container mx-auto px-4 py-8">
+	<!-- start page -->
+	<div class="bg-white rounded-lg shadow-md p-6">
+		
+		<!-- start content -->
+		<div class="text-center mb-8">
+			<img src="{% static 'images/tra.jpg' %}" alt="Patient Dashboard" class="mx-auto rounded-lg shadow-md mb-6" width="400" height="200" />
+			<h2 class="text-3xl font-bold text-gray-800 mb-4">Welcome to Your Health Dashboard</h2>
+			<div class="text-lg text-gray-600 mb-6">{{ data|safe }}</div>
+		</div>
+		
+		<!-- Dashboard Actions -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
+				<div class="text-4xl text-blue-600 mb-4">📋</div>
+				<h3 class="text-xl font-semibold text-gray-800 mb-2">Medical Profile</h3>
+				<p class="text-gray-600 mb-4">Create and update your medical profile</p>
+				<a href="{% url 'CreateProfile' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-block">
+					Create Profile
+				</a>
+			</div>
+			
+			<div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
+				<div class="text-4xl text-green-600 mb-4">📅</div>
+				<h3 class="text-xl font-semibold text-gray-800 mb-2">Book Appointment</h3>
+				<p class="text-gray-600 mb-4">Schedule appointments with doctors</p>
+				<a href="{% url 'BookAppointment' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-block">
+					Book Now
+				</a>
+			</div>
+			
+			<div class="bg-purple-50 border border-purple-200 rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
+				<div class="text-4xl text-purple-600 mb-4">💊</div>
+				<h3 class="text-xl font-semibold text-gray-800 mb-2">My Prescriptions</h3>
+				<p class="text-gray-600 mb-4">View your current prescriptions</p>
+				<a href="{% url 'ViewPrescription' %}" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-block">
+					View Prescriptions
+				</a>
+			</div>
+		</div>
+		
+		<!-- Health Summary -->
+		<div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+			<div class="bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-lg p-6 text-center">
+				<div class="text-3xl font-bold mb-2">Next Visit</div>
+				<div class="text-lg">March 15, 2024</div>
+				<div class="text-sm opacity-90">Dr. Smith - Cardiology</div>
+			</div>
+			
+			<div class="bg-gradient-to-r from-green-400 to-green-600 text-white rounded-lg p-6 text-center">
+				<div class="text-3xl font-bold mb-2">Active Rx</div>
+				<div class="text-lg">2 Medications</div>
+				<div class="text-sm opacity-90">Next refill: March 10</div>
+			</div>
+			
+			<div class="bg-gradient-to-r from-purple-400 to-purple-600 text-white rounded-lg p-6 text-center">
+				<div class="text-3xl font-bold mb-2">Health Score</div>
+				<div class="text-lg">85/100</div>
+				<div class="text-sm opacity-90">Excellent condition</div>
+			</div>
+		</div>
+		
+		<!-- Recent Activity -->
+		<div class="mt-8">
+			<h3 class="text-2xl font-bold text-gray-800 mb-4">Recent Activity</h3>
+			<div class="space-y-3">
+				<div class="bg-gray-50 p-4 rounded-lg flex items-center">
+					<div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4">✓</div>
+					<div>
+						<div class="font-semibold">Appointment Confirmed</div>
+						<div class="text-sm text-gray-600">March 15, 2024 - Dr. Smith</div>
+					</div>
+				</div>
+				<div class="bg-gray-50 p-4 rounded-lg flex items-center">
+					<div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4">💊</div>
+					<div>
+						<div class="font-semibold">Prescription Updated</div>
+						<div class="text-sm text-gray-600">Blood pressure medication renewed</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<!-- end page -->
+</div>
+</body>
+</html>
+
+

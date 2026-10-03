@@ -1,0 +1,60 @@
+{% load static %}
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Hospital Management System</title>
+<meta name="keywords" content="" />
+<meta name="Premium Series" content="" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="bg-gray-100">
+<!-- start header -->
+<header class="bg-blue-600 text-white shadow-lg">
+	<div class="container mx-auto px-4 py-4 flex justify-between items-center">
+		<h1 class="text-2xl font-bold">Hospital Management System</h1>
+		<nav>
+			<ul class="flex space-x-4">
+				<li><a href="{% url 'index' %}" class="hover:bg-blue-700 px-3 py-2 rounded transition duration-300">Home</a></li>
+				<li><a href="{% url 'AdminLogin' %}" class="hover:bg-blue-700 px-3 py-2 rounded transition duration-300">Admin</a></li>
+				<li><a href="{% url 'PatientLogin' %}" class="hover:bg-blue-700 px-3 py-2 rounded transition duration-300">Patients</a></li>
+				<li><a href="{% url 'DoctorLogin' %}" class="hover:bg-blue-700 px-3 py-2 rounded transition duration-300">Doctors</a></li>
+				<li><a href="{% url 'InsuranceLogin' %}" class="hover:bg-blue-700 px-3 py-2 rounded transition duration-300">Insurance</a></li>
+				<li><a href="{% url 'Register' %}" class="bg-green-500 hover:bg-green-600 px-3 py-2 rounded transition duration-300 transform hover:scale-105">New User Signup</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+<div class="container mx-auto px-4 py-8">
+	<!-- start page -->
+	<div class="bg-white rounded-lg shadow-md p-6">
+		
+		<!-- start content -->
+		<div class="text-center">
+			<div class="mb-6"><img src="{% static 'images/tra.jpg' %}" alt="Hospital Image" class="mx-auto rounded-lg shadow-md" width="660" height="300" /></div>
+			<div class="text-lg text-gray-700 mb-4">{{ data|safe }}</div>
+			<div class="mt-8">
+				<!-- Gamified buttons for medical actions -->
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+					<a href="{% url 'PatientLogin' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+						Patient Portal
+					</a>
+					<a href="{% url 'DoctorLogin' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+						Doctor Dashboard
+					</a>
+					<a href="{% url 'AdminLogin' %}" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+						Admin Panel
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- end content -->
+	</div>
+	<!-- end page -->
+</div>
+</body>
+</html>
+</body>
+</html>
+
+

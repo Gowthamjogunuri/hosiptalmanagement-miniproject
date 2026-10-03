@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup | Hospital Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="min-h-screen bg-slate-100">
+    <header class="bg-slate-900 text-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-semibold">Hospital Management System</h1>
+                <p class="text-slate-300">Create your hospital management account</p>
+            </div>
+            <nav class="flex flex-wrap gap-2">
+                <a href="{% url 'index' %}" class="text-slate-200 hover:text-white px-3 py-2 rounded-md transition">Home</a>
+                <a href="{% url 'AdminLogin' %}" class="text-slate-200 hover:text-white px-3 py-2 rounded-md transition">Admin</a>
+                <a href="{% url 'PatientLogin' %}" class="text-slate-200 hover:text-white px-3 py-2 rounded-md transition">Patients</a>
+                <a href="{% url 'DoctorLogin' %}" class="text-slate-200 hover:text-white px-3 py-2 rounded-md transition">Doctors</a>
+                <a href="{% url 'InsuranceLogin' %}" class="text-slate-200 hover:text-white px-3 py-2 rounded-md transition">Insurance</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-10">
+        <div class="max-w-3xl mx-auto bg-white rounded-[28px] shadow-xl overflow-hidden border border-slate-200">
+            <div class="bg-gradient-to-r from-teal-500 to-cyan-600 p-8 text-white text-center">
+                <img src="{% static 'images/tra.jpg' %}" alt="Hospital" class="mx-auto rounded-xl shadow-lg mb-6 w-full max-w-sm" />
+                <h2 class="text-3xl font-semibold">New User Signup</h2>
+                <p class="mt-2 text-slate-100">Join the system as a patient, doctor, or insurance partner.</p>
+            </div>
+            <div class="p-8 space-y-6">
+                {% if data %}
+                <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-700">
+                    {{ data|safe }}
+                </div>
+                {% endif %}
+
+                <form method="post" action="RegisterAction" class="grid gap-6" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label for="t1" class="block text-sm font-medium text-slate-700">Username</label>
+                            <input id="t1" name="t1" type="text" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200" />
+                        </div>
+                        <div>
+                            <label for="t2" class="block text-sm font-medium text-slate-700">Password</label>
+                            <input id="t2" name="t2" type="password" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200" />
+                        </div>
+                    </div>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label for="t3" class="block text-sm font-medium text-slate-700">Contact Number</label>
+                            <input id="t3" name="t3" type="tel" pattern="\d{10}" required placeholder="0123456789" class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200" />
+                        </div>
+                        <div>
+                            <label for="t4" class="block text-sm font-medium text-slate-700">Email Address</label>
+                            <input id="t4" name="t4" type="email" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="t5" class="block text-sm font-medium text-slate-700">Address</label>
+                        <input id="t5" name="t5" type="text" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200" />
+                    </div>
+                    <div>
+                        <label for="t6" class="block text-sm font-medium text-slate-700">Self Description</label>
+                        <textarea id="t6" name="t6" rows="3" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200"></textarea>
+                    </div>
+                    <div>
+                        <label for="t7" class="block text-sm font-medium text-slate-700">User Type</label>
+                        <select id="t7" name="t7" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200">
+                            <option value="Patient">Patient</option>
+                            <option value="Doctor">Doctor</option>
+                            <option value="Insurance">Insurance</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full rounded-2xl bg-teal-600 py-3 text-white font-semibold shadow-lg shadow-teal-200/50 transition hover:bg-teal-700">Register</button>
+                </form>
+
+                <div class="text-center text-sm text-slate-500">
+                    Already have an account? <a href="{% url 'PatientLogin' %}" class="font-semibold text-teal-600 hover:text-teal-700">Login here</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+

@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login | Hospital Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="min-h-screen bg-slate-100">
+    <header class="bg-slate-900 text-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-semibold">Hospital Management System</h1>
+                <p class="text-slate-300">Admin login dashboard</p>
+            </div>
+            <nav class="flex flex-wrap gap-2">
+                <a href="{% url 'index' %}" class="text-slate-200 hover:text-white px-3 py-2 rounded-md transition">Home</a>
+                <a href="{% url 'PatientLogin' %}" class="text-slate-200 hover:text-white px-3 py-2 rounded-md transition">Patients</a>
+                <a href="{% url 'DoctorLogin' %}" class="text-slate-200 hover:text-white px-3 py-2 rounded-md transition">Doctors</a>
+                <a href="{% url 'InsuranceLogin' %}" class="text-slate-200 hover:text-white px-3 py-2 rounded-md transition">Insurance</a>
+                <a href="{% url 'Register' %}" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-md transition">Signup</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-10">
+        <div class="max-w-lg mx-auto bg-white rounded-[28px] shadow-xl overflow-hidden border border-slate-200">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-white text-center">
+                <img src="{% static 'images/tra.jpg' %}" alt="Hospital" class="mx-auto rounded-xl shadow-lg mb-6 w-full max-w-sm" />
+                <h2 class="text-3xl font-semibold">Admin Login</h2>
+                <p class="mt-2 text-slate-200">Control panels and hospital management tools.</p>
+            </div>
+            <div class="p-8 space-y-6">
+                {% if data %}
+                <div class="rounded-2xl border border-red-200 bg-red-50 p-4 text-red-700">
+                    {{ data|safe }}
+                </div>
+                {% endif %}
+
+                <form method="post" action="AdminLoginAction" class="space-y-5">
+                    {% csrf_token %}
+                    <div>
+                        <label for="t1" class="block text-sm font-medium text-slate-700">Username</label>
+                        <input id="t1" name="t1" type="text" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+                    </div>
+                    <div>
+                        <label for="t2" class="block text-sm font-medium text-slate-700">Password</label>
+                        <input id="t2" name="t2" type="password" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+                    </div>
+                    <button type="submit" class="w-full rounded-2xl bg-blue-600 py-3 text-white font-semibold shadow-lg shadow-blue-200/50 transition hover:bg-blue-700">Login</button>
+                </form>
+
+                <div class="text-center text-sm text-slate-500">
+                    Need access? <a href="{% url 'Register' %}" class="font-semibold text-blue-600 hover:text-blue-700">Register as a new user</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+</body>
+</html>
+
+

@@ -1,0 +1,92 @@
+{% load static %}
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Hospital Management System - Admin Dashboard</title>
+<meta name="keywords" content="" />
+<meta name="Premium Series" content="" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="bg-gray-100">
+<!-- start header -->
+<header class="bg-blue-600 text-white shadow-lg">
+	<div class="container mx-auto px-4 py-4 flex justify-between items-center">
+		<h1 class="text-2xl font-bold">Admin Dashboard</h1>
+		<nav>
+			<ul class="flex space-x-4">
+				<li><a href="{% url 'AdminPatientView' %}" class="bg-blue-700 hover:bg-blue-800 px-3 py-2 rounded transition duration-300">View Patients</a></li>
+				<li><a href="{% url 'ViewDoctors' %}" class="bg-blue-700 hover:bg-blue-800 px-3 py-2 rounded transition duration-300">View Doctors</a></li>
+				<li><a href="{% url 'index' %}" class="bg-red-500 hover:bg-red-600 px-3 py-2 rounded transition duration-300">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+<div class="container mx-auto px-4 py-8">
+	<!-- start page -->
+	<div class="bg-white rounded-lg shadow-md p-6">
+		
+		<!-- start content -->
+		<div class="text-center mb-8">
+			<img src="{% static 'images/tra.jpg' %}" alt="Hospital Dashboard" class="mx-auto rounded-lg shadow-md mb-6" width="400" height="200" />
+			<h2 class="text-3xl font-bold text-gray-800 mb-4">Welcome to Admin Dashboard</h2>
+			<div class="text-lg text-gray-600 mb-6">{{ data|safe }}</div>
+		</div>
+		
+		<!-- Dashboard Actions -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
+				<div class="text-4xl text-blue-600 mb-4">👥</div>
+				<h3 class="text-xl font-semibold text-gray-800 mb-2">Patient Management</h3>
+				<p class="text-gray-600 mb-4">View and manage patient records</p>
+				<a href="{% url 'AdminPatientView' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-block">
+					View Patients
+				</a>
+			</div>
+			
+			<div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
+				<div class="text-4xl text-green-600 mb-4">👨‍⚕️</div>
+				<h3 class="text-xl font-semibold text-gray-800 mb-2">Doctor Management</h3>
+				<p class="text-gray-600 mb-4">Manage doctor information and schedules</p>
+				<a href="{% url 'ViewDoctors' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-block">
+					View Doctors
+				</a>
+			</div>
+			
+			<div class="bg-purple-50 border border-purple-200 rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
+				<div class="text-4xl text-purple-600 mb-4">📊</div>
+				<h3 class="text-xl font-semibold text-gray-800 mb-2">System Reports</h3>
+				<p class="text-gray-600 mb-4">Generate and view system reports</p>
+				<button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+					View Reports
+				</button>
+			</div>
+		</div>
+		
+		<!-- Quick Stats -->
+		<div class="mt-8 grid grid-cols-1 md:grid-cols-4 gap-4">
+			<div class="bg-white border border-gray-200 rounded-lg p-4 text-center">
+				<div class="text-2xl font-bold text-blue-600">150</div>
+				<div class="text-sm text-gray-600">Total Patients</div>
+			</div>
+			<div class="bg-white border border-gray-200 rounded-lg p-4 text-center">
+				<div class="text-2xl font-bold text-green-600">25</div>
+				<div class="text-sm text-gray-600">Active Doctors</div>
+			</div>
+			<div class="bg-white border border-gray-200 rounded-lg p-4 text-center">
+				<div class="text-2xl font-bold text-purple-600">45</div>
+				<div class="text-sm text-gray-600">Today's Appointments</div>
+			</div>
+			<div class="bg-white border border-gray-200 rounded-lg p-4 text-center">
+				<div class="text-2xl font-bold text-red-600">8</div>
+				<div class="text-sm text-gray-600">Emergency Cases</div>
+			</div>
+		</div>
+		
+	</div>
+	<!-- end page -->
+</div>
+</body>
+</html>
+
+

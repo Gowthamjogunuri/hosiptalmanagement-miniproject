@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirm Profile | Hospital Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="min-h-screen bg-slate-100">
+    <header class="bg-slate-900 text-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-semibold">Confirm Profile Details</h1>
+                <p class="text-slate-300">Verify your Aadhar number before saving your profile.</p>
+            </div>
+            <nav class="flex gap-3 flex-wrap">
+                <a href="{% url 'BookAppointment' %}" class="text-slate-200 hover:text-white px-4 py-2 rounded-lg transition">Book Appointment</a>
+                <a href="{% url 'ViewPrescription' %}" class="text-slate-200 hover:text-white px-4 py-2 rounded-lg transition">View Prescriptions</a>
+                <a href="{% url 'index' %}" class="text-slate-200 hover:text-white px-4 py-2 rounded-lg transition">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-10">
+        <div class="max-w-2xl mx-auto bg-white rounded-[28px] shadow-xl overflow-hidden border border-slate-200">
+            <div class="bg-gradient-to-r from-slate-700 to-slate-900 p-8 text-white text-center">
+                <h2 class="text-3xl font-semibold">Confirm Your Aadhar</h2>
+                <p class="mt-2 text-slate-200">Make sure your detected Aadhar number is correct before saving.</p>
+            </div>
+            <div class="p-8 space-y-6">
+                <form method="post" action="confirmProfileAction" class="space-y-5">
+                    {% csrf_token %}
+                    <div class="rounded-3xl border border-slate-200 bg-slate-50 p-6 space-y-4">
+                        <p class="text-slate-700">Detected Aadhar number is shown below. Update if needed.</p>
+                        <div class="grid gap-4">
+                            {{ data1|safe }}
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full rounded-2xl bg-slate-800 py-3 text-white font-semibold shadow-lg shadow-slate-300/20 transition hover:bg-slate-900">Save Profile</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+

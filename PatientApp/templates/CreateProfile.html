@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Profile | Hospital Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="min-h-screen bg-slate-100">
+    <header class="bg-slate-900 text-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-semibold">Patient Profile</h1>
+                <p class="text-slate-300">Upload your health documents to complete your profile.</p>
+            </div>
+            <nav class="flex gap-3 flex-wrap">
+                <a href="{% url 'CreateProfile' %}" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg transition">Create Medical Profile</a>
+                <a href="{% url 'BookAppointment' %}" class="text-slate-200 hover:text-white px-4 py-2 rounded-lg transition">Book Appointment</a>
+                <a href="{% url 'ViewPrescription' %}" class="text-slate-200 hover:text-white px-4 py-2 rounded-lg transition">View Prescriptions</a>
+                <a href="{% url 'index' %}" class="text-slate-200 hover:text-white px-4 py-2 rounded-lg transition">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-10">
+        <div class="max-w-3xl mx-auto bg-white rounded-[28px] shadow-xl overflow-hidden border border-slate-200">
+            <div class="bg-gradient-to-r from-teal-500 to-cyan-600 p-8 text-white text-center">
+                <h2 class="text-3xl font-semibold">Create Health Profile</h2>
+                <p class="mt-2 text-slate-100">Submit your disease history and documents securely.</p>
+            </div>
+            <div class="p-8 space-y-6">
+                {% if data %}
+                <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-700">
+                    {{ data|safe }}
+                </div>
+                {% endif %}
+                <form method="post" action="CreateProfileAction" enctype="multipart/form-data" class="space-y-5" onsubmit="return validate(this);">
+                    {% csrf_token %}
+                    <div>
+                        <label for="t1" class="block text-sm font-medium text-slate-700">Disease History</label>
+                        <textarea id="t1" name="t1" rows="4" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200" placeholder="Describe your medical history"></textarea>
+                    </div>
+                    <div>
+                        <label for="t2" class="block text-sm font-medium text-slate-700">Upload Aadhar Card</label>
+                        <input id="t2" name="t2" type="file" accept="image/*,.pdf" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200" />
+                    </div>
+                    <div>
+                        <label for="t3" class="block text-sm font-medium text-slate-700">Upload Medical Document</label>
+                        <input id="t3" name="t3" type="file" accept="image/*,.pdf" required class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200" />
+                    </div>
+                    <button type="submit" class="w-full rounded-2xl bg-teal-600 py-3 text-white font-semibold shadow-lg shadow-teal-200/50 transition hover:bg-teal-700">Submit Profile</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+

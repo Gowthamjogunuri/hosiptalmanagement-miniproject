@@ -1,0 +1,110 @@
+{% load static %}
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Hospital Management System - Doctor Dashboard</title>
+<meta name="keywords" content="" />
+<meta name="Premium Series" content="" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="{% static 'default.css' %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="bg-gray-100">
+<!-- start header -->
+<header class="bg-green-600 text-white shadow-lg">
+	<div class="container mx-auto px-4 py-4 flex justify-between items-center">
+		<h1 class="text-2xl font-bold">Doctor Dashboard</h1>
+		<nav>
+			<ul class="flex space-x-4">
+				<li><a href="{% url 'ViewAppointments' %}" class="bg-green-700 hover:bg-green-800 px-3 py-2 rounded transition duration-300">View Appointments</a></li>
+				<li><a href="{% url 'index' %}" class="bg-red-500 hover:bg-red-600 px-3 py-2 rounded transition duration-300">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+<div class="container mx-auto px-4 py-8">
+	<!-- start page -->
+	<div class="bg-white rounded-lg shadow-md p-6">
+		
+		<!-- start content -->
+		<div class="text-center mb-8">
+			<img src="{% static 'images/tra.jpg' %}" alt="Doctor Dashboard" class="mx-auto rounded-lg shadow-md mb-6" width="400" height="200" />
+			<h2 class="text-3xl font-bold text-gray-800 mb-4">Welcome to Doctor Dashboard</h2>
+			<div class="text-lg text-gray-600 mb-6">{{ data|safe }}</div>
+		</div>
+		
+		<!-- Dashboard Actions -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+			<div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
+				<div class="text-4xl text-blue-600 mb-4">📅</div>
+				<h3 class="text-xl font-semibold text-gray-800 mb-2">Appointments</h3>
+				<p class="text-gray-600 mb-4">View and manage your appointments</p>
+				<a href="{% url 'ViewAppointments' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-block">
+					View Appointments
+				</a>
+			</div>
+			
+			<div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
+				<div class="text-4xl text-green-600 mb-4">💊</div>
+				<h3 class="text-xl font-semibold text-gray-800 mb-2">Prescriptions</h3>
+				<p class="text-gray-600 mb-4">Generate and manage prescriptions from today’s appointments</p>
+				<a href="{% url 'ViewAppointments' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-block">
+					Open Appointments
+				</a>
+			</div>
+			
+			<div class="bg-indigo-50 border border-indigo-200 rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
+				<div class="text-4xl text-indigo-600 mb-4">📁</div>
+				<h3 class="text-xl font-semibold text-gray-800 mb-2">Medical Profiles</h3>
+				<p class="text-gray-600 mb-4">Download patient medical profiles securely.</p>
+				<a href="{% url 'ViewAppointments' %}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-block">
+					Download Profiles
+				</a>
+			</div>
+			
+			<div class="bg-purple-50 border border-purple-200 rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
+				<div class="text-4xl text-purple-600 mb-4">📋</div>
+				<h3 class="text-xl font-semibold text-gray-800 mb-2">Patient Records</h3>
+				<p class="text-gray-600 mb-4">Access patient medical records</p>
+				<button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+					View Records
+				</button>
+			</div>
+		</div>
+		
+		<!-- Today's Schedule -->
+		<div class="mt-8">
+			<h3 class="text-2xl font-bold text-gray-800 mb-4">Today's Schedule</h3>
+			<div class="bg-gray-50 rounded-lg p-4">
+				<div class="space-y-3">
+					<div class="flex justify-between items-center bg-white p-3 rounded shadow-sm">
+						<div>
+							<div class="font-semibold">9:00 AM - John Doe</div>
+							<div class="text-sm text-gray-600">Regular Checkup</div>
+						</div>
+						<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Confirmed</span>
+					</div>
+					<div class="flex justify-between items-center bg-white p-3 rounded shadow-sm">
+						<div>
+							<div class="font-semibold">10:30 AM - Jane Smith</div>
+							<div class="text-sm text-gray-600">Follow-up Visit</div>
+						</div>
+						<span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">Pending</span>
+					</div>
+					<div class="flex justify-between items-center bg-white p-3 rounded shadow-sm">
+						<div>
+							<div class="font-semibold">2:00 PM - Bob Johnson</div>
+							<div class="text-sm text-gray-600">Consultation</div>
+						</div>
+						<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Confirmed</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<!-- end page -->
+</div>
+</body>
+</html>
+
+
